@@ -1,0 +1,27 @@
+{
+  "reasoningTrace": [
+    "Analyzing returned item: Men's Running Shoes (SKU-4471)…",
+    "Condition: Like-New — 94% confidence. Minor outsole wear only.",
+    "Return reason parsed: “too small” → not a defect. Fully resellable.",
+    "Retrieving comparable active listings… 3 matches found.",
+    "Computing expected value across 5 fates…",
+    "Resell ₹2,499 · Refurbish ₹2,120 · Exchange ₹1,640 · Donate ₹0 · Recycle ₹95",
+    "Net of ₹180 refurb + ₹140 logistics → Resell maximizes recovery.",
+    "Sustainability: +1.8 kg CO₂e saved vs. recycling.",
+    "Decision: RESELL via Amazon Warehouse Deals. Confidence 91%."
+  ],
+  "evaluations": [
+    { "fate": "Resell", "recoveryValue": 2499, "refurbCost": 0, "logisticsCost": 140, "timeToSellDays": 6, "carbonDeltaKg": 1.8, "netValue": 2359 },
+    { "fate": "Refurbish", "recoveryValue": 2120, "refurbCost": 180, "logisticsCost": 140, "timeToSellDays": 11, "carbonDeltaKg": 1.2, "netValue": 1800 },
+    { "fate": "Exchange", "recoveryValue": 1640, "refurbCost": 0, "logisticsCost": 160, "timeToSellDays": 3, "carbonDeltaKg": 0.9, "netValue": 1480 },
+    { "fate": "Donate", "recoveryValue": 0, "refurbCost": 0, "logisticsCost": 90, "timeToSellDays": 0, "carbonDeltaKg": 1.5, "netValue": -90 },
+    { "fate": "Recycle", "recoveryValue": 95, "refurbCost": 0, "logisticsCost": 80, "timeToSellDays": 0, "carbonDeltaKg": 0.0, "netValue": 15 }
+  ],
+  "chosenFate": "Resell",
+  "confidence": 91,
+  "channel": "Amazon Warehouse Deals",
+  "rationale": "Like-New condition and a non-defect return reason make resale the highest-value, fastest-moving, and second-greenest outcome — recovering ₹2,499 with minimal handling.",
+  "carbonSavedKg": 1.8,
+  "decidedModel": "Amazon Nova Pro",
+  "source": "fallback"
+}

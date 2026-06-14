@@ -1,0 +1,134 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --ink: #131a22;
+    --squid: #232f3e;
+    --slate: #37475a;
+    --orange: #ff9900;
+    --link: #146eb4;
+    --sky: #00a8e1;
+    --gold: #febd69;
+    --success: #2bb673;
+    --danger: #e5564e;
+  }
+
+  * {
+    border-color: theme("colors.slate" / 60%);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink text-white font-sans antialiased;
+    margin: 0;
+    overflow-x: hidden;
+    /* faint ambient gradient so the dark never reads flat */
+    background-image:
+      radial-gradient(900px 500px at 80% -10%, rgba(255, 153, 0, 0.06), transparent 60%),
+      radial-gradient(800px 600px at -10% 110%, rgba(0, 168, 225, 0.05), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(255, 153, 0, 0.28);
+    color: #fff;
+  }
+
+  /* Custom scrollbar — premium console feel */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #37475a;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4a5a70;
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  /* Section label: 12–13px uppercase tracked */
+  .section-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-muted/70;
+  }
+
+  .mono {
+    @apply font-mono text-[12px] tracking-tight;
+  }
+
+  /* Glass card surface */
+  .surface {
+    @apply rounded-2xl border border-slate/60 bg-squid/70 backdrop-blur-sm;
+  }
+
+  /* Subtle dotted/grid backdrop */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(55, 71, 90, 0.25) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(55, 71, 90, 0.25) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(rgba(55, 71, 90, 0.5) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-white via-white to-gold/80 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-orange {
+    @apply bg-gradient-to-br from-orange via-gold to-orange bg-clip-text text-transparent;
+  }
+}
+
+/* Custom cursor glow follower (set by CursorGlow component) */
+.cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+  height: 360px;
+  width: 360px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.1) 0%, rgba(0, 168, 225, 0.05) 40%, transparent 70%);
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .cursor-glow {
+    display: none;
+  }
+}

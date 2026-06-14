@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# test artifacts
+test-results
+playwright-report
+.playwright
+.env
+.env.*
+!.env.example
+
+# editor / os
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+*.log
+npm-debug.log*
