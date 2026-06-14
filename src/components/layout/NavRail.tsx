@@ -57,7 +57,7 @@ export function NavRail() {
                 {isActive && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute -left-3 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r-full bg-orange"
+                    className="absolute left-[-12px] top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r-full bg-orange"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}
