@@ -11,6 +11,7 @@ import Listing from "@/screens/Listing";
 import Buyers from "@/screens/Buyers";
 import Prevention from "@/screens/Prevention";
 import Impact from "@/screens/Impact";
+import Architecture from "@/screens/Architecture";
 import Kit from "@/screens/Kit";
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/buyers/:id" element={<Buyers />} />
             <Route path="/prevention" element={<Prevention />} />
             <Route path="/impact" element={<Impact />} />
+            <Route path="/architecture" element={<Architecture />} />
             {/* Dev: motion-kit showcase */}
             <Route path="/_kit" element={<Kit />} />
           </Route>

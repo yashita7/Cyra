@@ -8,7 +8,7 @@ export const buyers: Buyer[] = [
     matchScore: 94,
     signal: "Searched 'running shoes size 9' 3× this week · Prime member",
     budget: 2800,
-    greenCreditsOffered: 120,
+    greenCreditsOffered: 150, // High - Prime member bonus + high match
   },
   {
     id: "BYR-002",
@@ -16,7 +16,7 @@ export const buyers: Buyer[] = [
     matchScore: 88,
     signal: "Abandoned cart with similar SKU · opted into Renewed deals",
     budget: 2500,
-    greenCreditsOffered: 120,
+    greenCreditsOffered: 130, // Medium-high - opted into sustainability program
   },
   {
     id: "BYR-003",
@@ -24,6 +24,6 @@ export const buyers: Buyer[] = [
     matchScore: 81,
     signal: "Browsed Warehouse Deals footwear · price-sensitive",
     budget: 2200,
-    greenCreditsOffered: 90,
+    greenCreditsOffered: 110, // Standard - regular buyer
   },
 ];
