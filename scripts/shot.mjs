@@ -6,9 +6,12 @@ const out = process.argv[3] || "/tmp/grade.png";
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await page.goto(url, { waitUntil: "networkidle" });
-await page.waitForTimeout(3800); // let grading reveal + defect box draw
-if (process.argv[4] === "full") {
+const mode = process.argv[4];
+await page.waitForTimeout(mode && mode.startsWith("sel:") ? 700 : 3800);
+if (mode === "full") {
   await page.screenshot({ path: out, fullPage: true });
+} else if (mode && mode.startsWith("sel:")) {
+  await page.locator(mode.slice(4)).first().screenshot({ path: out });
 } else {
   await page.locator(".aspect-square").first().screenshot({ path: out });
 }
