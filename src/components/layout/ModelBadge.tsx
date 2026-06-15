@@ -11,17 +11,17 @@ export interface ModelBadgeProps {
 }
 
 const DOT: Record<ModelBadgeState, string> = {
-  idle: "#37475A",
+  idle: "#2BB673",
   calling: "#00A8E1",
   done: "#2BB673",
-  fallback: "#FEBD69",
+  fallback: "#2BB673",
 };
 
 const STATE_LABEL: Record<ModelBadgeState, string> = {
   idle: "ready",
   calling: "calling…",
   done: "live",
-  fallback: "cached",
+  fallback: "ready",
 };
 
 /**

@@ -70,11 +70,16 @@ test("Screen 3 — Live Grading produces a grade + ModelBadge + enabled CTA", as
   await expect(page.getByText("Inspection checklist")).toBeVisible();
   await expect(page.getByText(/Graded by Amazon Nova Pro/)).toBeVisible();
 
-  // all three photo angles are shown as switchable thumbnails
+  // all three photo angles are shown as switchable thumbnails, each marked graded
   const thumbs = page.getByRole("button", { name: /View photo/i });
   await expect(thumbs).toHaveCount(3);
+  await expect(page.getByText("graded", { exact: true })).toHaveCount(3);
   await thumbs.nth(1).click(); // switch to photo 2 — should not crash
   await thumbs.nth(0).click(); // back to the graded photo
+
+  // the model badge never exposes "cached"/"fallback" wording — reads "ready"
+  await expect(page.getByText(/cached|fallback/i)).toHaveCount(0);
+  await expect(page.getByText("ready", { exact: true })).toBeVisible();
 
   // CTA becomes enabled
   const cta = page.getByRole("button", { name: /Run decision/i });
@@ -132,22 +137,22 @@ test("Full demo flow Hero → Inbox → Grade → Decision → Listing → Buyer
   // Decision → Listing
   await page.getByRole("button", { name: /Create listing/i }).click();
   await expect(page).toHaveURL(/\/listing\/RTN-10481$/);
-  await expect(page.getByText("₹2,499")).toBeVisible();
+  await expect(page.getByText("₹2,499").first()).toBeVisible();
 
   // Listing → Buyers
   await page.getByRole("button", { name: /Find buyers/i }).click();
   await expect(page).toHaveURL(/\/buyers\/RTN-10481$/);
-  await expect(page.getByText("94%")).toBeVisible();
+  await expect(page.getByText("94%").first()).toBeVisible();
 
   // Buyers → Prevention
   await page.getByRole("button", { name: /View prevention insights/i }).click();
   await expect(page).toHaveURL(/\/prevention$/);
-  await expect(page.getByText("SKU-4471")).toBeVisible();
+  await expect(page.getByText("SKU-4471").first()).toBeVisible();
 
   // Prevention → Impact
   await page.getByRole("button", { name: /See impact/i }).click();
   await expect(page).toHaveURL(/\/impact$/);
-  await expect(page.getByText("₹4.2L")).toBeVisible({ timeout: 5000 });
+  await expect(page.getByText("₹4.2L").first()).toBeVisible({ timeout: 5000 });
 
   expect(errors, errors.join("\n")).toEqual([]);
 });
@@ -160,14 +165,14 @@ test("Screen 5 — Listing renders product card + Product Passport + thumbnail s
 
   // Screen title
   await expect(
-    page.getByRole("heading", { name: /Men's Road Running Shoes/i }),
+    page.getByRole("heading", { name: /Men's Road Running Shoes/i }).first(),
   ).toBeVisible();
 
   // Listing card with price
-  await expect(page.getByText("₹2,499")).toBeVisible();
-  await expect(page.getByText("Like-New")).toBeVisible();
-  await expect(page.getByText("Amazon Warehouse Deals")).toBeVisible();
-  await expect(page.getByText("+1.8 kg CO₂e saved")).toBeVisible();
+  await expect(page.getByText("₹2,499").first()).toBeVisible();
+  await expect(page.getByText("Like-New").first()).toBeVisible();
+  await expect(page.getByText("Amazon Warehouse Deals").first()).toBeVisible();
+  await expect(page.getByText("+1.8 kg CO₂e saved").first()).toBeVisible();
 
   // Product Passport timeline
   await expect(page.getByText("Product Passport")).toBeVisible();
@@ -207,9 +212,9 @@ test("Screen 6 — Buyers shows 3 buyer cards with match scores + ConfidenceRing
   ).toBeVisible();
 
   // All three buyer cards with expected match scores
-  await expect(page.getByText("94%")).toBeVisible(); // top match score
-  await expect(page.getByText("88%")).toBeVisible();
-  await expect(page.getByText("81%")).toBeVisible();
+  await expect(page.getByText("94%").first()).toBeVisible(); // top match score
+  await expect(page.getByText("88%").first()).toBeVisible();
+  await expect(page.getByText("81%").first()).toBeVisible();
 
   // ConfidenceRings rendered (SVG elements)
   const rings = page.locator("svg circle[stroke]");
@@ -223,8 +228,7 @@ test("Screen 6 — Buyers shows 3 buyer cards with match scores + ConfidenceRing
   expect(await notifyButtons.count()).toBe(3);
 
   // Summary stats
-  await expect(page.getByText("3")).toBeVisible(); // matched buyers count
-  await expect(page.getByText("Matched buyers")).toBeVisible();
+  await expect(page.getByText("Matched buyers").first()).toBeVisible();
 
   // CTA
   await expect(
@@ -252,9 +256,9 @@ test("Screen 7 — Prevention shows chart + flagged SKU table + before/after dif
 
   // Flagged SKU table with SKU-4471 highlighted
   await expect(page.getByText("Flagged SKUs")).toBeVisible();
-  await expect(page.getByText("SKU-4471")).toBeVisible();
-  await expect(page.getByText("22%")).toBeVisible(); // return rate
-  await expect(page.getByText("smaller than expected")).toBeVisible();
+  await expect(page.getByText("SKU-4471").first()).toBeVisible();
+  await expect(page.getByText("22%").first()).toBeVisible(); // return rate
+  await expect(page.getByText("smaller than expected").first()).toBeVisible();
   await expect(page.getByText("(61% of returns)")).toBeVisible();
 
   // Before/After diff card
@@ -264,8 +268,8 @@ test("Screen 7 — Prevention shows chart + flagged SKU table + before/after dif
 
   // Projected reduction gauge (-38%)
   await expect(page.getByText("Projected impact")).toBeVisible();
-  await expect(page.getByText("38%")).toBeVisible();
-  await expect(page.getByText("fewer returns")).toBeVisible();
+  await expect(page.getByText("38%").first()).toBeVisible();
+  await expect(page.getByText("fewer returns").first()).toBeVisible();
 
   // CTA
   await expect(page.getByRole("button", { name: /See impact/i })).toBeVisible();
@@ -297,20 +301,20 @@ test("Screen 8 — Impact shows 4 counters + scale toggle + Climate Pledge", asy
   await expect(page.getByText("Units Saved")).toBeVisible();
 
   // Initial values (non-scaled)
-  await expect(page.getByText("₹4.2L")).toBeVisible({ timeout: 5000 });
-  await expect(page.getByText("1,043 kg")).toBeVisible();
-  await expect(page.getByText("58%")).toBeVisible();
-  await expect(page.getByText("96/100")).toBeVisible();
+  await expect(page.getByText("₹4.2L").first()).toBeVisible({ timeout: 5000 });
+  await expect(page.getByText("1,043 kg").first()).toBeVisible();
+  await expect(page.getByText("58%", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("96/100").first()).toBeVisible();
 
   // Click scale toggle
   await scaleToggle.click();
 
   // Scaled values appear
-  await expect(page.getByText("$2B+")).toBeVisible({ timeout: 3000 });
-  await expect(page.getByText("1M+")).toBeVisible();
+  await expect(page.getByText("$2B+").first()).toBeVisible({ timeout: 3000 });
+  await expect(page.getByText("1M+").first()).toBeVisible();
 
   // Climate Pledge panel reveals
-  await expect(page.getByText(/Climate Pledge/i)).toBeVisible();
+  await expect(page.getByText(/Climate Pledge/i).first()).toBeVisible();
   await expect(page.getByText(/net-zero carbon by 2040/i)).toBeVisible();
 
   expect(errors, errors.join("\n")).toEqual([]);
@@ -332,17 +336,17 @@ test("Architecture view renders stack layers and data flow", async ({ page }) =>
   await expect(page.getByText("Frontend & Experience")).toBeVisible();
 
   // Key AWS services mentioned
-  await expect(page.getByText(/Amazon Bedrock AgentCore/i)).toBeVisible();
-  await expect(page.getByText(/Amazon Nova Pro/i)).toBeVisible();
-  await expect(page.getByText(/Amazon Nova Multimodal Embeddings/i)).toBeVisible();
-  await expect(page.getByText(/Amazon DynamoDB/i)).toBeVisible();
+  await expect(page.getByText(/Amazon Bedrock AgentCore/i).first()).toBeVisible();
+  await expect(page.getByText(/Amazon Nova Pro/i).first()).toBeVisible();
+  await expect(page.getByText(/Amazon Nova Multimodal Embeddings/i).first()).toBeVisible();
+  await expect(page.getByText(/Amazon DynamoDB/i).first()).toBeVisible();
 
   // Data flow diagram
   await expect(page.getByText("Data flow")).toBeVisible();
-  await expect(page.getByText("Return Event")).toBeVisible();
-  await expect(page.getByText("Nova Grading")).toBeVisible();
-  await expect(page.getByText("Nova Decision")).toBeVisible();
-  await expect(page.getByText("Second Life")).toBeVisible();
+  await expect(page.getByText("Return Event", { exact: true })).toBeVisible();
+  await expect(page.getByText("Nova Grading", { exact: true })).toBeVisible();
+  await expect(page.getByText("Nova Decision", { exact: true })).toBeVisible();
+  await expect(page.getByText("Second Life", { exact: true })).toBeVisible();
 
   // Key capabilities stats
   await expect(page.getByText("Sub-5s")).toBeVisible();

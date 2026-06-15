@@ -7,7 +7,7 @@
       "id": "d1",
       "label": "Minor outsole wear",
       "severity": "minor",
-      "box": { "x": 0.55, "y": 0.7, "w": 0.3, "h": 0.18 }
+      "box": { "x": 0.04, "y": 0.74, "w": 0.22, "h": 0.16 }
     }
   ],
   "checks": [

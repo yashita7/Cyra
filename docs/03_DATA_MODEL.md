@@ -64,7 +64,7 @@ Add **~12–15 filler returns** (electronics, apparel, home, toys; varied reason
 ### Fallback grade → `cached/grading.json`
 ```json
 { "conditionGrade":"Like-New","conditionScore":92,"confidence":94,
-  "defects":[{"id":"d1","label":"Minor outsole wear","severity":"minor","box":{"x":0.55,"y":0.7,"w":0.3,"h":0.18}}],
+  "defects":[{"id":"d1","label":"Minor outsole wear","severity":"minor","box":{"x":0.04,"y":0.74,"w":0.22,"h":0.16}}],
   "checks":[{"label":"Both shoes present","passed":true},{"label":"Original box & laces","passed":true},
             {"label":"Authenticity verified","passed":true},{"label":"No functional damage","passed":true}],
   "graderModel":"Amazon Nova Pro","latencyMs":4200,"source":"fallback" }

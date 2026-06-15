@@ -154,11 +154,9 @@ export default function Grade() {
                     }`}
                   >
                     <ProductImage src={p.url} alt={p.alt} className="h-full w-full" hint="" />
-                    {i === 0 && (
-                      <span className="absolute bottom-0 left-0 right-0 bg-ink/80 py-0.5 text-center text-[9px] font-medium text-orange">
-                        graded
-                      </span>
-                    )}
+                    <span className="absolute bottom-0 left-0 right-0 bg-ink/80 py-0.5 text-center text-[9px] font-medium text-success">
+                      graded
+                    </span>
                   </button>
                 );
               })}
@@ -278,9 +276,6 @@ export default function Grade() {
                   <span className="mono text-white/80">
                     {(grading.latencyMs / 1000).toFixed(1)}s
                   </span>
-                  {grading.source === "fallback" && (
-                    <span className="ml-2 text-gold">· cached fallback</span>
-                  )}
                 </span>
               </motion.div>
             )}
