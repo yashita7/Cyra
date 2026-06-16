@@ -7,7 +7,7 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await page.goto(url, { waitUntil: "networkidle" });
 const mode = process.argv[4];
-await page.waitForTimeout(mode && mode.startsWith("sel:") ? 700 : 3800);
+await page.waitForTimeout(3800);
 if (mode === "full") {
   await page.screenshot({ path: out, fullPage: true });
 } else if (mode && mode.startsWith("sel:")) {

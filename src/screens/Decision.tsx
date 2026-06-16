@@ -290,10 +290,18 @@ export default function Decision() {
               );
             })}
           </div>
-          <p className="mt-5 border-t border-slate/40 pt-4 text-center text-[12px] text-muted">
-            Decision computed live on Amazon Bedrock — grounded in the numbers,
-            not guessed.
-          </p>
+          <div className="mt-5 border-t border-slate/40 pt-4 text-center">
+            <p className="text-[12px] text-muted">
+              Reasoned on Amazon Bedrock Nova — grounded in the numbers, not
+              guessed.
+            </p>
+            {decision?.source === "fallback" && (
+              <p className="mt-1 text-[11px] text-sky/80">
+                Showing a cached response to conserve API quota · live Nova runs
+                in the demo recording.
+              </p>
+            )}
+          </div>
         </div>
 
         {/* verdict */}

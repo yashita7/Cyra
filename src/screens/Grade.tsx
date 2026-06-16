@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, RotateCcw, ScanLine } from "lucide-react";
+import { ArrowRight, Check, Database, RotateCcw, ScanLine } from "lucide-react";
 import { getReturn } from "@/data/returns";
 import { gradeItem } from "@/lib/api";
 import type { Grading } from "@/data/types";
@@ -277,6 +277,12 @@ export default function Grade() {
                     {(grading.latencyMs / 1000).toFixed(1)}s
                   </span>
                 </span>
+                {grading.source === "fallback" && (
+                  <span className="flex items-center gap-1.5 text-[11px] text-sky/80">
+                    <Database className="h-3 w-3" />
+                    cached to save quota · live Nova in the demo
+                  </span>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

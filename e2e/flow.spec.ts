@@ -77,9 +77,10 @@ test("Screen 3 — Live Grading produces a grade + ModelBadge + enabled CTA", as
   await thumbs.nth(1).click(); // switch to photo 2 — should not crash
   await thumbs.nth(0).click(); // back to the graded photo
 
-  // the model badge never exposes "cached"/"fallback" wording — reads "ready"
-  await expect(page.getByText(/cached|fallback/i)).toHaveCount(0);
-  await expect(page.getByText("ready", { exact: true })).toBeVisible();
+  // badge communicates an intentional cached response (quota-saving), not "ready"
+  await expect(page.getByText("cached", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("ready", { exact: true })).toHaveCount(0);
+  await expect(page.getByText(/cached to save quota/i)).toBeVisible();
 
   // CTA becomes enabled
   const cta = page.getByRole("button", { name: /Run decision/i });
