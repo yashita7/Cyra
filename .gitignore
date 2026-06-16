@@ -7,6 +7,9 @@ dist-ssr
 test-results
 playwright-report
 .playwright
+
+# internal docs (not shipped in the repo)
+docs/
 .env
 .env.*
 !.env.example
